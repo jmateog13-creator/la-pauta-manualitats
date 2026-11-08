@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Escolta · La Pauta</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /* Tot en una pantalla, sense scroll: la mida de tot depèn de l'alçada (vh). */
+  :root { --paper:#fbf7ee; --ink:#2a2118; --soft:#6d5f50; --epoca:#c9a227; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:700 clamp(13px,2.15vh,21px)/1.25 Nunito, system-ui, sans-serif;
+         display:flex; flex-direction:column; height:100dvh; overflow:hidden; }
+  .banda { flex:none; background:var(--epoca); color:#fff; display:flex; align-items:center; justify-content:space-between;
+           gap:10px; padding:.45vh 16px; font:700 clamp(15px,2.6vh,24px) Fredoka, sans-serif; }
+  .tornar { color:var(--ink); background:#fff; text-decoration:none; border:3px solid var(--ink); border-radius:999px;
+            padding:.15em .8em; box-shadow:0 3px 0 var(--ink); font-size:.85em; white-space:nowrap; }
+  .fes { display:flex; align-items:center; gap:6px; font-size:.85em; }
+  .fes .tornar { font-size:.8em; padding:.1em .6em; }
+  .tornar:active { transform:translateY(3px); box-shadow:none; }
+  main { flex:1; min-height:0; width:100%; max-width:1000px; margin:0 auto; padding:1.4vh 16px .8vh;
+         display:grid; gap:1.2vh clamp(10px,3vw,36px); grid-template-columns:auto 1fr; grid-template-rows:auto 1fr;
+         grid-template-areas:"fig cap" "fig cos"; }
+  #figura { grid-area:fig; height:100%; max-width:40vw; object-fit:contain; align-self:center; min-height:0;
+            filter:drop-shadow(0 6px 10px #0002); }
+  .cap { grid-area:cap; } .cos { grid-area:cos; min-height:0; display:flex; flex-direction:column; gap:.6vh; }
+  h1 { font:700 clamp(24px,5.4vh,54px)/1 Fredoka, sans-serif; margin:0 0 .1em; }
+  .meta { color:var(--soft); margin:0; }
+  .bandera { display:inline-block; width:1.5em; height:1em; vertical-align:-.12em; margin-left:.3em; border-radius:2px; box-shadow:0 0 0 1px #0003; }
+  h2 { display:inline-block; font:600 .95em Fredoka, sans-serif; margin:0 0 .3em; color:#fff; background:var(--ink);
+       padding:.05em .7em; border-radius:999px; transform:rotate(-1.5deg); }
+  p { margin:0; }
+
+  /* Obra principal: reproductor gran + La Pauta escoltant */
+  .obra { font:700 clamp(17px,3.2vh,30px)/1.1 Fredoka, sans-serif; margin:1vh 0 .35em; }
+  .principal { display:flex; align-items:center; gap:12px; }
+  .principal .reproductor { flex:1; max-width:470px; }
+  .pauta { flex:none; height:clamp(54px,11vh,120px); }
+  .reproductor { display:flex; align-items:center; gap:10px; background:#fff; border:3px solid var(--ink);
+                 border-radius:16px; padding:.8vh 12px; }
+  .play { flex:none; width:clamp(44px,7.5vh,70px); aspect-ratio:1; border-radius:50%; border:none; background:var(--epoca);
+          cursor:pointer; display:grid; place-items:center; padding:0; }
+  .play:focus-visible { outline:4px solid var(--ink); outline-offset:3px; }
+  .play svg { width:45%; height:45%; fill:#fff; }
+  .barra { flex:1; min-width:0; }
+  .temps { height:8px; background:#eee3cf; border-radius:4px; overflow:hidden; cursor:pointer; }
+  .omple { height:100%; width:0; background:var(--epoca); }
+  .rellotge { font-size:.85em; color:var(--soft); margin-top:3px; }
+  .interpret { font-size:.9em; color:var(--soft); margin-top:.3em; }
+  .interpret b { color:var(--ink); }
+
+  /* Altres obres: reproductors petits */
+  .altres { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .altres .reproductor { border-width:2px; border-radius:12px; padding:.6vh 10px; }
+  .altres .play { width:clamp(34px,5vh,46px); }
+  .altres .titol { font:600 1em/1.15 Fredoka, sans-serif; }
+  .altres .interpret { margin:0 0 .3em; }
+
+  .buida { background:#fff8; border:2px dashed var(--soft); border-radius:12px; padding:.4em .8em; color:var(--soft); }
+  .pista b { color:var(--soft); }
+  .sabies { display:flex; align-items:flex-end; gap:10px; margin-top:auto; }
+  .curiositat { background:#fff3c4; border:3px dashed var(--epoca); border-radius:14px; padding:.5em .8em; }
+  footer { flex:none; font-size:clamp(9px,1.3vh,12px); color:var(--soft); text-align:center; padding:0 16px .4vh; }
+  footer a { color:inherit; }
+
+  /* Mòbil vertical: figura + títol i obra principal a dalt; la resta a sota a tot l'ample */
+  @media (max-aspect-ratio: 3/4) {
+    main { grid-template-columns:36% 1fr; grid-template-areas:"fig cap" "cos cos"; }
+    #figura { height:auto; width:100%; max-width:none; max-height:30vh; }
+    .principal .pauta { height:clamp(44px,7vh,70px); }
+    #figura { max-height:27vh; }
+    .altres { gap:5px; }
+    body { font-size:clamp(12px,1.7vh,15px); }
+    #figura { max-height:25vh; }
+    h1 { font-size:clamp(22px,4vh,34px); }
+    .obra { font-size:clamp(16px,2.6vh,22px); }
+    .altres .reproductor { gap:6px; padding:5px 7px; }
+    .altres .play { width:32px; }
+    .altres .reproductor:not(.activa) :is(.temps, .rellotge) { display:none; }  /* la barra només surt a l'obra que sona */
+    .cos { gap:.8vh; }
+  }
+</style>
+</head>
+<body>
+<nav class="banda"><a class="tornar" id="tornar" href="#">← Tornar al <span id="epoca"></span></a><span class="fes">Com es fa?<a class="tornar" id="m1">Manualitat 1</a><a class="tornar" id="m2">2</a><a class="tornar" id="m3">3</a></span></nav>
+<main>
+  <img id="figura" alt="">
+  <div class="cap">
+    <h1 id="nom"></h1>
+    <p class="meta" id="dates"></p>
+    <div id="principal"></div>
+  </div>
+  <div class="cos">
+    <section><h2>Què escoltes?</h2><div id="pistes"></div></section>
+    <section><h2>Altres obres</h2><div class="altres" id="altres"></div></section>
+    <section><h2>Qui era?</h2><p id="qui"></p></section>
+    <section class="sabies">
+      <div style="flex:1"><h2>Sabies que…?</h2><p class="curiositat" id="curiositat"></p></div>
+      <img class="pauta" id="pauta-idea" alt="La Pauta té una idea">
+    </section>
+  </div>
+</main>
+<footer><span id="credits"></span> · © Javier Mateo García per a Aulatech · <a href="https://www.youtube.com/@lapautamusica" target="_blank" rel="noopener">La Pauta a YouTube</a></footer>
+<audio id="audio" preload="none"></audio>
+<script src="dades.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("c") || location.pathname.split("/").filter(Boolean).pop();
+const clau = id in COMPOSITORS ? id : "bach";
+const c = COMPOSITORS[clau];
+const $ = s => document.getElementById(s);
+const vestit = PAUTA[c.epoca] || "base";
+const PLAY = "M7 4v16l13-8z", PAUSA = "M6 4h4v16H6zM14 4h4v16h-4z";
+
+document.documentElement.style.setProperty("--epoca", EPOQUES[c.epoca]);
+document.title = `${c.nom} · Escolta`;
+$("epoca").textContent = c.epoca;
+$("tornar").href = `epoca.html?e=${encodeURIComponent(c.epoca)}`;
+for (const n of [1, 2, 3]) $(`m${n}`).href = `com-es-fa.html?c=${clau}&m=${n}`;
+$("figura").src = `img/${clau}.png`;
+$("figura").alt = `Figura de ${c.nom}`;
+$("nom").textContent = c.nom;
+$("dates").innerHTML = `${c.dates} · ${c.lloc} ${[].concat(c.pais).map(p => `<span class="bandera" style="background:${BANDERES[p]}"></span>`).join("")}`;
+$("qui").textContent = c.qui;
+$("curiositat").textContent = c.curiositat;
+$("pauta-idea").src = `img/pauta-${vestit}-idea.png`;
+$("pistes").innerHTML = c.pistes.map(p => `<p class="pista"><b>${p.titol}:</b> ${p.text}</p>`).join("");
+
+// i = 0: obra principal (gran, sense títol dins). i > 0: altres obres (títol i intèrpret dins).
+const reproductor = (o, i) => `
+  <div class="reproductor" data-i="${i}">
+    <button class="play" aria-label="Escolta: ${o.titol}"><svg viewBox="0 0 24 24"><path d="${PLAY}"/></svg></button>
+    <div class="barra">
+      ${i ? `<div class="titol">${o.titol}</div><div class="interpret">${o.interpret}</div>` : ""}
+      <div class="temps" tabindex="0" role="slider" aria-label="Posició"><div class="omple"></div></div>
+      <div class="rellotge">0:00</div>
+    </div>
+  </div>`;
+const [principal, ...altres] = c.obres;
+if (!principal) {  // sense_audio: cap gravació lliure (p. ex. música encara protegida)
+  $("principal").innerHTML = `<p class="buida" style="margin-top:1vh">Encara no hem trobat cap gravació lliure per escoltar aquí. Busca-la amb el teu professor!</p>`;
+  $("altres").closest("section").hidden = true;
+  $("credits").textContent = "";
+} else {
+$("principal").innerHTML = `
+  <p class="obra">♪ ${principal.titol}</p>
+  <div class="principal">${reproductor(principal, 0)}<img class="pauta" src="img/pauta-${vestit}-escolta.png" alt="La Pauta escoltant"></div>
+  <p class="interpret">Toca: <b>${principal.interpret}</b></p>`;
+$("altres").innerHTML = altres.map((o, i) => reproductor(o, i + 1)).join("");
+if (!altres.length) $("altres").outerHTML = `<p class="buida">Encara no hem trobat cap altra gravació lliure de ${c.nom.split(" ").pop()}. Aviat n’hi haurà més!</p>`;
+}
+// Crèdits: un per intèrpret (si toca diverses obres, surt un sol cop).
+const vist = {};
+if (c.obres.length) $("credits").innerHTML = "Àudio (Wikimedia Commons): " + c.obres.filter(o => !vist[o.interpret.split(",")[0]] && (vist[o.interpret.split(",")[0]] = 1)).map(o =>
+  `${o.interpret.split(",")[0]} · <a href="${o.font}" target="_blank" rel="noopener">${o.llicencia}</a>`).join(" · ");
+
+// Un sol <audio> per a totes les obres: si en poses una, s'atura l'altra.
+const a = $("audio");
+let actual = -1;
+const caixa = i => document.querySelector(`.reproductor[data-i="${i}"]`);
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+document.querySelectorAll(".reproductor").forEach(r => {
+  const i = +r.dataset.i;
+  r.querySelector(".play").onclick = () => {
+    if (i !== actual) {
+      if (actual >= 0) { caixa(actual).querySelector(".omple").style.width = 0; caixa(actual).querySelector(".rellotge").textContent = "0:00"; }
+      if (actual >= 0) caixa(actual).classList.remove("activa");
+      actual = i; a.src = c.obres[i].src; r.classList.add("activa");
+    }
+    a.paused ? a.play() : a.pause();
+  };
+  const t = r.querySelector(".temps");
+  t.onclick = e => { if (i === actual && a.duration) a.currentTime = (e.offsetX / t.clientWidth) * a.duration; };
+  t.onkeydown = e => { if (i !== actual) return; if (e.key === "ArrowRight") a.currentTime += 10; if (e.key === "ArrowLeft") a.currentTime -= 10; };
+});
+a.onplay = a.onpause = () => document.querySelectorAll(".reproductor").forEach(r => {
+  r.querySelector("path").setAttribute("d", +r.dataset.i === actual && !a.paused ? PAUSA : PLAY);
+});
+a.ontimeupdate = () => {
+  const r = caixa(actual); if (!r) return;
+  r.querySelector(".omple").style.width = `${(a.currentTime / a.duration) * 100 || 0}%`;
+  r.querySelector(".rellotge").textContent = `${mmss(a.currentTime)} / ${a.duration ? mmss(a.duration) : "–"}`;
+};
+
+// Tot ha de cabre en una pantalla: si algun bloc desborda (textos llargs, pantalles petites),
+// es redueix la lletra de tota la pàgina de mig en mig píxel fins que hi cap.
+const desborda = () => [...document.querySelectorAll("main, .cap, .cos, .barra, .reproductor")]
+  .some(e => e.scrollHeight > e.clientHeight + 1 || e.scrollWidth > e.clientWidth + 1);
+function encaixa() {
+  document.body.style.fontSize = "";
+  let mida = parseFloat(getComputedStyle(document.body).fontSize);
+  while (desborda() && mida > 9) document.body.style.fontSize = `${mida -= 0.5}px`;
+}
+document.fonts.ready.then(encaixa);
+$("figura").addEventListener("load", encaixa);  // l'amplada de la figura canvia l'espai del text
+document.querySelectorAll(".pauta, #pauta-idea").forEach(i => i.addEventListener("load", encaixa));
+addEventListener("resize", encaixa);
+</script>
+</body>
+</html>

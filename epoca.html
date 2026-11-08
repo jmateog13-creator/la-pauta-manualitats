@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sala · Museu dels Compositors</title>
+<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=IM+Fell+English+SC&family=Cormorant+Garamond:wght@700&family=Cinzel:wght@700&family=Abril+Fatface&family=Bebas+Neue&family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="museu.css">
+<style>
+  .grup { flex:1; min-height:0; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:clamp(10px,3vw,40px); }
+  /* Cartell de la sala: color de l'època, marc daurat, penjat de dos cordons */
+  .cartell-sala { align-self:center; position:relative; margin:2.5vh 0 2vh; padding:.5vh 1.4em .7vh; text-align:center; color:#fff;
+                  background:var(--epoca); border:4px solid var(--or1); border-radius:10px; box-shadow:0 6px 14px #0005, inset 0 0 0 2px #0002; }
+  .cartell-sala::before, .cartell-sala::after { content:""; position:absolute; top:-2.5vh; width:3px; height:2.5vh; background:var(--or2); }
+  .cartell-sala::before { left:18%; } .cartell-sala::after { right:18%; }
+  .cartell-sala h1 { color:#fff; text-shadow:0 2px 0 #0004; }
+  .cartell-sala p { margin:0; font:600 clamp(13px,2.2vh,20px) Fredoka, sans-serif; opacity:.95; }
+  .llenc { background:#fffaf0e6; }
+  .placa b { font-size:clamp(13px,min(2.5vh,4vw),24px); }
+  /* Mòbil vertical: el quadre pren la forma de la figura (alta i estreta) i queda centrat, sense espai buit a dalt */
+  @media (max-aspect-ratio: 3/4) {
+    .grup { align-items:center; gap:8px; }
+    .marc { flex:none; aspect-ratio:1 / 2.15; padding:5px; }
+    .llenc { padding:4% 3% 0; }
+    .llenc img { max-height:100%; width:100%; }
+  }
+</style>
+</head>
+<body>
+<nav class="banda"><a class="boto" href="museu.html">← Totes les sales</a><span id="banda"></span></nav>
+<main>
+  <div class="cartell-sala"><h1 id="titol"></h1><p id="anys"></p></div>
+  <div class="grup" id="grup"></div>
+</main>
+<footer>© Javier Mateo García per a Aulatech · <a href="https://www.youtube.com/@lapautamusica" target="_blank" rel="noopener">La Pauta a YouTube</a></footer>
+<script src="dades.js"></script>
+<script>
+const e = new URLSearchParams(location.search).get("e") || "Barroc";
+const $ = s => document.getElementById(s);
+document.title = `${e} · Museu dels Compositors`;
+$("banda").textContent = `Sala ${Object.keys(EPOQUES).indexOf(e) + 1}`;
+$("titol").innerHTML = `Sala del <span style="font-family:${LLETRES[e]}, Fredoka, serif">${e}</span>`;
+$("anys").textContent = ANYS[e];
+document.querySelector(".banda").style.background = EPOQUES[e];
+document.querySelector(".cartell-sala").style.setProperty("--epoca", EPOQUES[e]);
+document.body.style.background = `linear-gradient(#fbf7ee55, #fbf7ee99), url(${fons(e)}) center bottom / cover`;
+$("grup").innerHTML = Object.entries(COMPOSITORS).filter(([, c]) => c.epoca === e).map(([id, c]) => {
+  const obre = true;
+  return `<${obre ? "a" : "div"} class="quadre ${obre ? "" : "tancada"}" ${obre ? `href="compositor.html?c=${id}"` : ""}>
+    <div class="marc"><div class="llenc"><img src="img/${id}.png" alt="Figura de ${c.nom}"></div></div>
+    <div class="placa"><b>${c.nom}</b><small>${obre ? c.dates : "Aviat!"}</small></div>
+  </${obre ? "a" : "div"}>`;
+}).join("");
+</script>
+</body>
+</html>

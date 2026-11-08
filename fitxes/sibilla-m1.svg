@@ -1,0 +1,45 @@
+<svg class="m1" viewBox="0 0 210 297" width="210mm" height="297mm" xmlns="http://www.w3.org/2000/svg"><style>.m1 .cut { fill:#fff; stroke:#222; stroke-width:.45; }
+.m1 .finestra { fill:#fff; stroke:#222; stroke-width:.45; stroke-dasharray:1.2 .8; }
+.m1 .sec { stroke:#999; stroke-width:.3; }
+.m1 .tall { stroke:#c0392b; stroke-width:.9; }
+.m1 .zona { fill:none; stroke:#c0392b; stroke-width:.25; stroke-dasharray:1 1; }
+.m1 .inici { fill:#f2f2f2; }
+.m1 .tab { fill:#e6e6e6; stroke:#222; stroke-width:.35; }
+.m1 .fold { stroke:#555; stroke-width:.4; stroke-dasharray:1.6 1.1; }
+.m1 .forat { fill:#fff; stroke:#222; stroke-width:.4; }
+.m1 .mel { fill:none; stroke:#222; stroke-width:.5; }
+.m1 .nota-p { fill:#222; }
+.m1 .dib { fill:#fff; stroke:#222; stroke-width:.6; stroke-linejoin:round; }
+.m1 .dib line { stroke-width:.3; }
+.m1 .punter { stroke:#888; stroke-width:.3; stroke-dasharray:.8 .6; }
+.m1 .tecla { fill:#fff; stroke:#222; stroke-width:.4; }
+.m1 .negra { fill:#fff; stroke:#222; stroke-width:.6; }
+.m1 .lbl { font-size:3px; fill:#888; }
+.m1 .h1 { font-family:Fredoka, sans-serif; font-size:7px; font-weight:700; fill:#111; }
+.m1 .h2 { font-size:3.2px; fill:#888; }
+.m1 .rule { stroke:#222; stroke-width:.3; }
+.m1 .tt { font-family:Fredoka, sans-serif; font-size:5.4px; font-weight:700; fill:#111; }
+.m1 .rt { font-family:Fredoka, sans-serif; font-weight:700; fill:#111; }
+.m1 .rs { font-size:3px; fill:#333; }
+.m1 .rs2 { font-size:3.8px; fill:#222; }
+.m1 .guia { font-size:3.8px; fill:#333; }
+.m1 .box { fill:#fff; stroke:#222; stroke-width:.35; }
+.m1 .apren { fill:#fff; stroke:#222; stroke-width:.4; stroke-dasharray:1.4 .9; }
+.m1 .num { fill:#222; }
+.m1 .numt { font-size:4px; font-weight:800; fill:#fff; }
+.m1 .ar { fill:none; stroke:#222; stroke-width:.6; stroke-linecap:round; stroke-linejoin:round; }
+.m1 .stepH { font-family:Fredoka, sans-serif; font-size:4.4px; font-weight:700; fill:#222; }
+.m1 .st1 { font-family:Fredoka, sans-serif; font-size:4.2px; font-weight:700; fill:#111; }
+.m1 .st2 { font-size:2.9px; fill:#333; }
+.m1 .qr { fill:#fff; stroke:#222; stroke-width:.3; stroke-dasharray:1 .6; }
+.m1 .qrt { font-size:3.2px; text-anchor:middle; fill:#999; }
+.m1 .foot { font-size:2.6px; fill:#888; }</style>
+<text x="15.00" y="13.00" class="h1" text-anchor="start" >La Sibil·la · Veu solista i interludi</text>
+<text x="195.00" y="7.00" class="h2" text-anchor="end" >La Pauta · Compositors · Edat Mitjana · Manualitat 1</text>
+<line x1="15" y1="17" x2="195" y2="17" class="rule"/>
+<g id="base"><rect x="25" y="32" width="160" height="66" rx="3" class="cut"/><line x1="105" y1="40" x2="105" y2="92" class="sec"/><text x="65.00" y="40.00" class="tt" text-anchor="middle" style="font-size:6px">ESTROFA</text><image href="fitxes/simbols/sibilla-espasa.png" x="51.57" y="43.00" width="26.85" height="37"/><text x="65.00" y="88.00" class="rs2" text-anchor="middle" >Canta UNA sola veu: la solista, amb</text><text x="65.00" y="92.20" class="rs2" text-anchor="middle" >l'espasa aixecada.</text><text x="145.00" y="40.00" class="tt" text-anchor="middle" style="font-size:6px">INTERLUDI</text><image href="fitxes/simbols/orgue.png" x="129.78" y="43.00" width="30.44" height="37"/><text x="145.00" y="88.00" class="rs2" text-anchor="middle" >Calla la veu i toca l'orgue una petita</text><text x="145.00" y="92.20" class="rs2" text-anchor="middle" >música.</text></g><text x="105.00" y="103.00" class="lbl" text-anchor="middle" >BASE · aquí hi ha la sorpresa</text><g id="solapa"><rect x="25" y="112" width="160" height="74" rx="3" fill="#fff"/><rect x="25" y="112" width="160" height="8" class="tab"/><text x="105.00" y="117.40" class="lbl" text-anchor="middle" >pestanya: posa-hi cola i enganxa-la a dalt de la base</text><line x1="25" y1="120" x2="185" y2="120" class="fold"/><rect x="25" y="112" width="160" height="74" rx="3" class="cut" style="fill:none"/><text x="105.00" y="148.00" class="tt" text-anchor="middle" style="font-size:11px">El Cant de la Sibil·la</text><text x="105.00" y="162.00" class="rs2" style="font-size:4.6px" text-anchor="middle" >Qui canta? Aixeca la solapa!</text></g><text x="105.00" y="191.00" class="lbl" text-anchor="middle" >SOLAPA</text>
+<text x="15.00" y="200.00" class="stepH" text-anchor="start" >COM ES FA</text><rect x="15.0" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose1.png" x="17.0" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="19.6" cy="207.6" r="3" class="num"/><text x="19.60" y="208.80" class="numt" text-anchor="middle" >1</text><text x="36.50" y="227.50" class="st1" text-anchor="middle" >Pinta</text><text x="36.50" y="231.50" class="st2" text-anchor="middle" >les dues peces</text><rect x="60.7" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose2.png" x="62.7" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="65.3" cy="207.6" r="3" class="num"/><text x="65.30" y="208.80" class="numt" text-anchor="middle" >2</text><text x="82.20" y="227.50" class="st1" text-anchor="middle" >Retalla</text><text x="82.20" y="231.50" class="st2" text-anchor="middle" >la base i la solapa</text><rect x="106.4" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose3.png" x="108.4" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="111.0" cy="207.6" r="3" class="num"/><text x="111.00" y="208.80" class="numt" text-anchor="middle" >3</text><text x="127.90" y="227.50" class="st1" text-anchor="middle" >Enganxa</text><text x="127.90" y="231.50" class="st2" text-anchor="middle" >la pestanya grisa a dalt</text><text x="127.90" y="234.70" class="st2" text-anchor="middle" >de la base</text><rect x="152.10000000000002" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/gest-obre.png" x="154.10000000000002" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="156.70000000000002" cy="207.6" r="3" class="num"/><text x="156.70" y="208.80" class="numt" text-anchor="middle" >4</text><text x="173.60" y="227.50" class="st1" text-anchor="middle" >Aixeca</text><text x="173.60" y="231.50" class="st2" text-anchor="middle" >la solapa i descobreix</text>
+<rect x="15" y="243" width="180" height="22" rx="3" class="apren"/><text x="20.00" y="250.00" class="stepH" text-anchor="start" >QUÈ HAS APRÈS?</text><text x="20.00" y="256.50" class="rs2" text-anchor="start" >Una cançó pot alternar ESTROFES (la veu) i INTERLUDIS (els instruments).</text>
+<rect x="174" y="268" width="19" height="19" class="qr"/><text x="183.50" y="279.00" class="qrt" text-anchor="middle" >QR</text><text x="171.00" y="276.00" class="rs2" text-anchor="end" >Escolta l'obra:</text><text x="171.00" y="281.00" class="rs2" text-anchor="end" >escaneja el codi</text>
+<text x="105.00" y="292.00" class="foot" text-anchor="middle" >© Javier Mateo García per a Aulatech</text>
+</svg>

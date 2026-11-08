@@ -1,0 +1,45 @@
+<svg class="m1" viewBox="0 0 210 297" width="210mm" height="297mm" xmlns="http://www.w3.org/2000/svg"><style>.m1 .cut { fill:#fff; stroke:#222; stroke-width:.45; }
+.m1 .finestra { fill:#fff; stroke:#222; stroke-width:.45; stroke-dasharray:1.2 .8; }
+.m1 .sec { stroke:#999; stroke-width:.3; }
+.m1 .tall { stroke:#c0392b; stroke-width:.9; }
+.m1 .zona { fill:none; stroke:#c0392b; stroke-width:.25; stroke-dasharray:1 1; }
+.m1 .inici { fill:#f2f2f2; }
+.m1 .tab { fill:#e6e6e6; stroke:#222; stroke-width:.35; }
+.m1 .fold { stroke:#555; stroke-width:.4; stroke-dasharray:1.6 1.1; }
+.m1 .forat { fill:#fff; stroke:#222; stroke-width:.4; }
+.m1 .mel { fill:none; stroke:#222; stroke-width:.5; }
+.m1 .nota-p { fill:#222; }
+.m1 .dib { fill:#fff; stroke:#222; stroke-width:.6; stroke-linejoin:round; }
+.m1 .dib line { stroke-width:.3; }
+.m1 .punter { stroke:#888; stroke-width:.3; stroke-dasharray:.8 .6; }
+.m1 .tecla { fill:#fff; stroke:#222; stroke-width:.4; }
+.m1 .negra { fill:#fff; stroke:#222; stroke-width:.6; }
+.m1 .lbl { font-size:3px; fill:#888; }
+.m1 .h1 { font-family:Fredoka, sans-serif; font-size:7px; font-weight:700; fill:#111; }
+.m1 .h2 { font-size:3.2px; fill:#888; }
+.m1 .rule { stroke:#222; stroke-width:.3; }
+.m1 .tt { font-family:Fredoka, sans-serif; font-size:5.4px; font-weight:700; fill:#111; }
+.m1 .rt { font-family:Fredoka, sans-serif; font-weight:700; fill:#111; }
+.m1 .rs { font-size:3px; fill:#333; }
+.m1 .rs2 { font-size:3.8px; fill:#222; }
+.m1 .guia { font-size:3.8px; fill:#333; }
+.m1 .box { fill:#fff; stroke:#222; stroke-width:.35; }
+.m1 .apren { fill:#fff; stroke:#222; stroke-width:.4; stroke-dasharray:1.4 .9; }
+.m1 .num { fill:#222; }
+.m1 .numt { font-size:4px; font-weight:800; fill:#fff; }
+.m1 .ar { fill:none; stroke:#222; stroke-width:.6; stroke-linecap:round; stroke-linejoin:round; }
+.m1 .stepH { font-family:Fredoka, sans-serif; font-size:4.4px; font-weight:700; fill:#222; }
+.m1 .st1 { font-family:Fredoka, sans-serif; font-size:4.2px; font-weight:700; fill:#111; }
+.m1 .st2 { font-size:2.9px; fill:#333; }
+.m1 .qr { fill:#fff; stroke:#222; stroke-width:.3; stroke-dasharray:1 .6; }
+.m1 .qrt { font-size:3.2px; text-anchor:middle; fill:#999; }
+.m1 .foot { font-size:2.6px; fill:#888; }</style>
+<text x="15.00" y="13.00" class="h1" text-anchor="start" >C. Debussy · L'escala pentatònica</text>
+<text x="195.00" y="7.00" class="h2" text-anchor="end" >La Pauta · Compositors · Segle XX · Manualitat 1</text>
+<line x1="15" y1="17" x2="195" y2="17" class="rule"/>
+<g id="dibuix"><rect x="21" y="50" width="12" height="80" class="tecla"/><text x="27.00" y="126.00" class="rs" text-anchor="middle" >DO</text><rect x="33" y="50" width="12" height="80" class="tecla"/><text x="39.00" y="126.00" class="rs" text-anchor="middle" >RE</text><rect x="45" y="50" width="12" height="80" class="tecla"/><text x="51.00" y="126.00" class="rs" text-anchor="middle" >MI</text><rect x="57" y="50" width="12" height="80" class="tecla"/><text x="63.00" y="126.00" class="rs" text-anchor="middle" >FA</text><rect x="69" y="50" width="12" height="80" class="tecla"/><text x="75.00" y="126.00" class="rs" text-anchor="middle" >SOL</text><rect x="81" y="50" width="12" height="80" class="tecla"/><text x="87.00" y="126.00" class="rs" text-anchor="middle" >LA</text><rect x="93" y="50" width="12" height="80" class="tecla"/><text x="99.00" y="126.00" class="rs" text-anchor="middle" >SI</text><rect x="105" y="50" width="12" height="80" class="tecla"/><text x="111.00" y="126.00" class="rs" text-anchor="middle" >DO</text><rect x="117" y="50" width="12" height="80" class="tecla"/><text x="123.00" y="126.00" class="rs" text-anchor="middle" >RE</text><rect x="129" y="50" width="12" height="80" class="tecla"/><text x="135.00" y="126.00" class="rs" text-anchor="middle" >MI</text><rect x="141" y="50" width="12" height="80" class="tecla"/><text x="147.00" y="126.00" class="rs" text-anchor="middle" >FA</text><rect x="153" y="50" width="12" height="80" class="tecla"/><text x="159.00" y="126.00" class="rs" text-anchor="middle" >SOL</text><rect x="165" y="50" width="12" height="80" class="tecla"/><text x="171.00" y="126.00" class="rs" text-anchor="middle" >LA</text><rect x="177" y="50" width="12" height="80" class="tecla"/><text x="183.00" y="126.00" class="rs" text-anchor="middle" >SI</text><rect x="29.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="41.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="65.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="77.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="89.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="113.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="125.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="149.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="161.16" y="50" width="7.68" height="48.0" class="negra"/><rect x="173.16" y="50" width="7.68" height="48.0" class="negra"/><text x="105.00" y="44.00" class="guia" text-anchor="middle" >Pinta de negre les 5 tecles negres de cada grup (2 + 3) i toca-les amb un teclat o una app.</text><text x="105.00" y="140.00" class="guia" text-anchor="middle" >Si toques NOMÉS les tecles negres, sempre sona bé: és una escala de 5 notes, la PENTATÒNICA.</text><text x="105.00" y="147.00" class="guia" text-anchor="middle" >Debussy la feia servir perquè sonés com la música de l'Àsia que va sentir a París.</text></g>
+<text x="15.00" y="200.00" class="stepH" text-anchor="start" >COM ES FA</text><rect x="15.0" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose1.png" x="17.0" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="19.6" cy="207.6" r="3" class="num"/><text x="19.60" y="208.80" class="numt" text-anchor="middle" >1</text><text x="36.50" y="227.50" class="st1" text-anchor="middle" >Pinta</text><text x="36.50" y="231.50" class="st2" text-anchor="middle" >el dibuix</text><rect x="60.7" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/gest-escriu.png" x="62.7" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="65.3" cy="207.6" r="3" class="num"/><text x="65.30" y="208.80" class="numt" text-anchor="middle" >2</text><text x="82.20" y="227.50" class="st1" text-anchor="middle" >Completa</text><text x="82.20" y="231.50" class="st2" text-anchor="middle" >els noms o les notes</text><rect x="106.4" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose2.png" x="108.4" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="111.0" cy="207.6" r="3" class="num"/><text x="111.00" y="208.80" class="numt" text-anchor="middle" >3</text><text x="127.90" y="227.50" class="st1" text-anchor="middle" >Retalla</text><text x="127.90" y="231.50" class="st2" text-anchor="middle" >i enganxa-ho a la llibreta</text><rect x="152.10000000000002" y="203" width="43" height="34" rx="3" class="box"/><image href="img/gestos/pose6.png" x="154.10000000000002" y="205" width="39" height="18" preserveAspectRatio="xMidYMid meet"/><circle cx="156.70000000000002" cy="207.6" r="3" class="num"/><text x="156.70" y="208.80" class="numt" text-anchor="middle" >4</text><text x="173.60" y="227.50" class="st1" text-anchor="middle" >Escolta</text><text x="173.60" y="231.50" class="st2" text-anchor="middle" >l'obra amb el QR</text>
+<rect x="15" y="243" width="180" height="22" rx="3" class="apren"/><text x="20.00" y="250.00" class="stepH" text-anchor="start" >QUÈ HAS APRÈS?</text><text x="20.00" y="256.50" class="rs2" text-anchor="start" >Una escala PENTATÒNICA té 5 notes. Les tecles negres en són una!</text>
+<rect x="174" y="268" width="19" height="19" class="qr"/><text x="183.50" y="279.00" class="qrt" text-anchor="middle" >QR</text><text x="171.00" y="276.00" class="rs2" text-anchor="end" >Escolta l'obra:</text><text x="171.00" y="281.00" class="rs2" text-anchor="end" >escaneja el codi</text>
+<text x="105.00" y="292.00" class="foot" text-anchor="middle" >© Javier Mateo García per a Aulatech</text>
+</svg>

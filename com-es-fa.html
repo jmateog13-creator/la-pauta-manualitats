@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Com es fa · La Pauta</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&family=Cormorant+SC:wght@700&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<style>
+  :root { --paper:#fbf7ee; --ink:#2a2118; --soft:#6d5f50; --epoca:#c9a227; }
+  * { box-sizing:border-box; }
+  body { margin:0; height:100dvh; display:flex; flex-direction:column; background:var(--paper); color:var(--ink);
+         font:700 clamp(13px,2.1vh,19px)/1.3 Nunito, system-ui, sans-serif; overflow:hidden; }
+  .banda { flex:none; display:flex; align-items:center; gap:10px; padding:.5vh 16px; background:var(--epoca); color:#fff;
+           font:700 clamp(14px,2.4vh,22px) Fredoka, sans-serif; }
+  .banda span { margin-left:auto; }
+  .boto { color:var(--ink); background:#fff; text-decoration:none; border:3px solid var(--ink); border-radius:999px;
+          padding:.1em .8em; box-shadow:0 3px 0 var(--ink); font:700 .85em Fredoka, sans-serif; cursor:pointer; white-space:nowrap; }
+  .boto[aria-current="true"] { background:var(--ink); color:#fff; }
+  main { flex:1; min-height:0; width:100%; max-width:1040px; margin:0 auto; padding:1.2vh 16px; display:flex; flex-direction:column; gap:1vh; }
+  .cap { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  h1 { font:700 clamp(19px,3.4vh,32px)/1.1 Fredoka, sans-serif; margin:0; }
+  .tria { display:flex; gap:8px; margin-left:auto; }
+  .marc { position:relative; flex:1; min-height:0; border:3px solid var(--ink); border-radius:18px; overflow:hidden; box-shadow:0 6px 0 #0002; }
+  #escena { width:100%; height:100%; display:block; }
+  .peu { flex:none; display:flex; align-items:center; gap:14px; }
+  #gest { height:clamp(58px,12vh,118px); flex:none; filter:drop-shadow(0 3px 0 #0002); }
+  .txt { flex:1; min-width:0; }
+  #pas { font:700 clamp(18px,3.2vh,30px)/1.1 Fredoka, sans-serif; display:flex; align-items:center; gap:.4em; }
+  #num { display:inline-grid; place-items:center; width:1.6em; height:1.6em; border-radius:50%; background:var(--epoca); color:#fff; flex:none;
+         box-shadow:0 3px 0 #0003; }
+  #detall { color:var(--soft); margin-top:.2em; min-height:1.3em; }
+  .barra { height:6px; border-radius:3px; background:#eadfca; margin-top:.5em; overflow:hidden; }
+  .barra i { display:block; height:100%; width:0; background:var(--epoca); }
+  .controls { display:flex; gap:6px; }
+  .controls button { font:700 clamp(15px,2.4vh,22px) Fredoka, sans-serif; width:2.3em; height:2.3em; border-radius:50%;
+                     border:3px solid var(--ink); background:#fff; cursor:pointer; box-shadow:0 3px 0 var(--ink); }
+  .controls button:active { transform:translateY(3px); box-shadow:none; }
+  #punts { display:flex; gap:8px; justify-content:center; }
+  #punts button { width:12px; height:12px; padding:0; border-radius:50%; border:0; background:#d9cdb5; cursor:pointer; }
+  #punts button.ara { background:var(--epoca); transform:scale(1.25); }
+  svg text { font-family:Fredoka, sans-serif; }
+  /* Estils de la fitxa impresa (els mateixos de paper-toy/fitxa.py) */
+  .fitxa text { font-family:Nunito, sans-serif; }
+  .fitxa .cut { fill:#fff; stroke:#222; stroke-width:.35; } .fitxa .tab { fill:#ececec; stroke:#222; stroke-width:.35; }
+  .fitxa .slit { stroke:#c0392b; stroke-width:.6; } .fitxa .fold { stroke:#555; stroke-width:.4; stroke-dasharray:1.6 1.1; }
+  .fitxa .lbl { font-size:2.8px; fill:#888; text-anchor:middle; }
+  .fitxa .nom { font-family:'Playfair Display', serif; font-weight:800; font-size:8px; text-anchor:middle; fill:#111; }
+  .fitxa .obra { font-family:'Cormorant SC', serif; font-weight:700; text-anchor:middle; fill:#111; }
+  .fitxa .qr { fill:#fff; stroke:#222; stroke-width:.3; stroke-dasharray:1 .6; } .fitxa .qrt { font-size:3.2px; text-anchor:middle; fill:#999; }
+  .fitxa .esc2 { font-size:2.5px; fill:#666; } .fitxa .epoca { font-family:'Playfair Display', serif; font-weight:800; font-size:5.6px; letter-spacing:.4px; fill:#111; }
+  .fitxa .dates { font-size:3.8px; font-weight:800; fill:#111; } .fitxa .lloc { font-family:'Playfair Display', serif; font-weight:800; font-size:5px; text-anchor:middle; fill:#111; }
+  .fitxa .h1 { font-size:5.5px; font-weight:800; fill:#222; } .fitxa .h2 { font-size:3.2px; fill:#888; } .fitxa .rule { stroke:#222; stroke-width:.3; }
+  .fitxa .box { fill:#fff; stroke:#222; stroke-width:.35; } .fitxa .num { fill:#222; } .fitxa .numt { font-size:4px; font-weight:800; fill:#fff; text-anchor:middle; }
+  .fitxa .ic { fill:#fff; stroke:#222; stroke-width:.45; } .fitxa .icf { stroke:#555; stroke-width:.4; stroke-dasharray:1 .7; }
+  .fitxa .ar { fill:none; stroke:#222; stroke-width:.5; } .fitxa .st1 { font-size:4.4px; font-weight:800; fill:#111; } .fitxa .st2 { font-size:3.4px; fill:#333; }
+  .fitxa .stepH { font-size:3.6px; font-weight:800; fill:#222; } .fitxa .foot { font-size:2.6px; fill:#888; text-anchor:middle; }
+</style>
+</head>
+<body>
+<nav class="banda"><a class="boto" id="tornar" href="#">← Tornar</a><span id="banda"></span></nav>
+<main>
+  <div class="cap"><h1 id="titol"></h1><div class="tria" id="tria"></div></div>
+  <div class="marc"><svg id="escena" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet"></svg></div>
+  <div id="punts"></div>
+  <div class="peu">
+    <img id="gest" alt="La Pauta">
+    <div class="txt"><div id="pas"><span id="num">1</span><span id="pas-t"></span></div><div id="detall"></div><div class="barra"><i id="prog"></i></div></div>
+    <div class="controls"><button id="ant" aria-label="Pas anterior">◀</button><button id="pausa" aria-label="Pausa">⏸</button><button id="seg" aria-label="Pas següent">▶</button></div>
+  </div>
+</main>
+<script src="dades.js"></script>
+<script src="manualitats.js"></script>
+<script>
+gsap.registerPlugin(MotionPathPlugin);
+const q = new URLSearchParams(location.search);
+const id = q.get("c") in COMPOSITORS ? q.get("c") : "bach";
+const m = ["1", "2", "3"].includes(q.get("m")) ? +q.get("m") : 1;
+const C = COMPOSITORS[id], MA = MANUALITATS[id];
+const $ = s => document.getElementById(s);
+const COL = EPOQUES[C.epoca];
+document.documentElement.style.setProperty("--epoca", COL);
+document.title = `Com es fa · ${C.nom}`;
+$("tornar").href = `compositor.html?c=${id}`;
+$("banda").textContent = C.nom;
+$("titol").textContent = `Manualitat ${m} · ${m === 1 ? MA.concepte : m === 2 ? "La figura" : "L'escenari"}`;
+$("tria").innerHTML = [1, 2, 3].map(n => `<a class="boto" href="?c=${id}&m=${n}" aria-current="${n === m}">${n}</a>`).join("");
+
+// ============ Eines SVG =====================================================================
+const NS = "http://www.w3.org/2000/svg", svg = $("escena");
+function el(tag, a = {}, pare = svg) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(a)) e.setAttribute(k, v);
+  pare.appendChild(e); return e;
+}
+const g = (pare, a = {}) => el("g", a, pare);
+function txt(pare, x, y, t, mida = 22, a = {}) {
+  const e = el("text", { x, y, "text-anchor": "middle", "font-size": mida, "font-weight": 700, fill: "#2a2118", ...a }, pare);
+  e.textContent = t; return e;
+}
+let uid = 0;
+const nou = p => `${p}${++uid}`;
+const PASTELS = ["#f6c6c6", "#c9e4f6", "#d6efc7", "#fde7a6", "#e5d4f5", "#ffd8b5", "#c7efe9", "#f9cfe6", "#dfe8b0", "#cfd8f7", "#f7dfc4", "#d5f0d0"];
+
+// Defs: ombra de paper, filtre «dibuix per pintar» (gris i contrastat), tapet de tall, llautó de l'encuadernador
+svg.innerHTML = `<defs>
+  <filter id="ombra" x="-10%" y="-10%" width="130%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity=".22"/></filter>
+  <filter id="ombra2" x="-20%" y="-20%" width="150%" height="160%"><feDropShadow dx="2" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".3"/></filter>
+  <filter id="linia"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="linear" slope=".75" intercept=".3"/><feFuncG type="linear" slope=".75" intercept=".3"/><feFuncB type="linear" slope=".75" intercept=".3"/></feComponentTransfer></filter>
+  <pattern id="tapet" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#2f6f5e"/><path d="M40 0H0V40" fill="none" stroke="#5b9a86" stroke-width="1"/><path d="M20 0V40M0 20H40" stroke="#4a8774" stroke-width=".5"/></pattern>
+  <linearGradient id="llauto" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#d4a12a"/><stop offset="1" stop-color="#8a6512"/></linearGradient>
+  <linearGradient id="plec" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+</defs>`;
+const defs = svg.querySelector("defs");
+const cam = g(svg);                      // la «càmera»: s'hi fa zoom
+el("rect", { x: -1200, y: -900, width: 3200, height: 2300, fill: "url(#tapet)" }, cam);  // el tapet sobrepassa molt: amb «meet» es veuen els marges
+const escena = g(cam), eines = g(cam);    // les eines sempre per damunt
+
+// Figura que es pot «pintar»: la mateixa imatge en gris (dibuix) i en color, amb una màscara que es va descobrint
+function pintable(pare, href, x, y, w, h, ajust = "xMidYMid meet") {
+  const gr = g(pare);
+  el("image", { href, x, y, width: w, height: h, filter: "url(#linia)", preserveAspectRatio: ajust }, gr);
+  const mk = nou("mk"), mask = el("mask", { id: mk, maskUnits: "userSpaceOnUse", x: -2000, y: -2000, width: 5000, height: 5000 }, defs);
+  el("image", { href, x, y, width: w, height: h, mask: `url(#${mk})`, preserveAspectRatio: ajust }, gr);
+  return { gr, mask, caixa: { x, y, w, h } };
+}
+// Forma (sector, rectangle…) que es pinta: blanca, amb el color a sota d'una màscara i el contorn per damunt
+function formaPintable(pare, tag, a, color) {
+  const gr = g(pare);
+  el(tag, { ...a, fill: "#fff" }, gr);
+  const mk = nou("mk"), mask = el("mask", { id: mk, maskUnits: "userSpaceOnUse", x: -2000, y: -2000, width: 5000, height: 5000 }, defs);
+  el(tag, { ...a, fill: color, mask: `url(#${mk})` }, gr);
+  el(tag, { ...a, fill: "none", stroke: "#2a2118", "stroke-width": 2.5 }, gr);
+  return { gr, mask };
+}
+function llapis() {
+  const l = g(eines, { opacity: 0 });
+  const r = g(l, { transform: "rotate(-35)" });
+  el("rect", { x: -7, y: -110, width: 14, height: 90, rx: 2, fill: COL, stroke: "#2a2118", "stroke-width": 2 }, r);
+  el("rect", { x: -7, y: -118, width: 14, height: 10, fill: "#f2a3a3", stroke: "#2a2118", "stroke-width": 2 }, r);
+  el("path", { d: "M -7 -20 L 0 0 L 7 -20 Z", fill: "#f4d9b0", stroke: "#2a2118", "stroke-width": 2 }, r);
+  el("path", { d: "M -2.5 -7 L 0 0 L 2.5 -7 Z", fill: COL }, r);
+  return l;
+}
+function tisores() {
+  const t = g(eines, { opacity: 0 });
+  const fulla = s => { const f = g(t); el("path", { d: `M 0 0 L 46 ${-5 * s} L 50 ${-1 * s} Z`, fill: "#dfe6ea", stroke: "#2a2118", "stroke-width": 2 }, f);
+    el("ellipse", { cx: -16, cy: 9 * s, rx: 11, ry: 8, fill: "none", stroke: "#e74c3c", "stroke-width": 5 }, f); return f; };
+  const a = fulla(1), b = fulla(-1);
+  el("circle", { r: 3, fill: "#2a2118" }, t);
+  return { t, a, b };
+}
+// Pinta: el llapis fa ziga-zagues i, al seu pas, apareix el color.
+// La caixa és en coordenades de la peça (les de la màscara); «off» és on és la peça a l'escena (per al llapis).
+function pinta(tl, obj, dur = 2.4, pos, off = [0, 0], escala = 1) {
+  const { x, y, w, h } = obj.caixa || obj;
+  const files = Math.max(3, Math.round(h / 34));
+  const zz = (dx, dy, e = 1) => { const X = v => v * e + dx, Y = v => v * e + dy; let d = `M ${X(x)} ${Y(y + 10)}`;
+    for (let i = 0; i < files; i++) { const yy = y + 10 + (i + .5) * (h - 20) / files; d += ` L ${X(i % 2 ? x : x + w)} ${Y(yy)} L ${X(i % 2 ? x + w : x)} ${Y(yy + (h - 20) / files / 2)}`; }
+    return d; };
+  const d = zz(0, 0), dLlapis = zz(off[0], off[1], escala);
+  const p = el("path", { d, fill: "none", stroke: "#fff", "stroke-width": Math.max(60 / escala, h / files * 2.6), "stroke-linecap": "round", "stroke-linejoin": "round" }, obj.mask);
+  const L = p.getTotalLength();
+  gsap.set(p, { strokeDasharray: L, strokeDashoffset: L });
+  const l = llapis();
+  tl.set(l, { opacity: 1 }, pos)
+    .to(p, { strokeDashoffset: 0, duration: dur, ease: "none" }, "<")
+    .to(l, { motionPath: { path: dLlapis }, duration: dur, ease: "none" }, "<")
+    .to(l, { opacity: 0, duration: .2 });
+}
+// Retalla: les tisores segueixen el camí i hi deixen el tall marcat
+function retalla(tl, d, dur = 2.2, pos) {
+  const guia = el("path", { d, fill: "none", stroke: "#2a2118", "stroke-width": 3 }, eines);
+  const L = guia.getTotalLength();
+  gsap.set(guia, { strokeDasharray: L, strokeDashoffset: L });
+  const { t, a, b } = tisores();
+  const cops = Math.max(2, Math.round(dur / .24));
+  tl.set(t, { opacity: 1 }, pos)
+    .to(t, { motionPath: { path: d, autoRotate: true }, duration: dur, ease: "none" }, "<")
+    .to(guia, { strokeDashoffset: 0, duration: dur, ease: "none" }, "<")
+    .to(a, { rotation: 12, duration: .12, repeat: cops, yoyo: true, transformOrigin: "35% 50%" }, "<")
+    .to(b, { rotation: -12, duration: .12, repeat: cops, yoyo: true, transformOrigin: "35% 50%" }, "<")
+    .to([t, guia], { opacity: 0, duration: .25 });
+}
+// Full de paper on hi ha les peces: després de retallar, el que sobra cau
+function full(x, y, w, h) {
+  const f = g(escena);
+  el("rect", { x, y, width: w, height: h, fill: "#fff", filter: "url(#ombra)" }, f);
+  return f;
+}
+const cauFull = (tl, f, pos) => tl.to(f, { y: 600, rotation: 6, opacity: 0, duration: 1, ease: "power2.in", svgOrigin: "400 230" }, pos);
+function cola(tl, x1, y1, x2, pos) {
+  const c = g(eines, { opacity: 0 });
+  el("rect", { x: -12, y: -70, width: 24, height: 60, rx: 5, fill: "#3f7fd0", stroke: "#2a2118", "stroke-width": 2 }, c);
+  el("rect", { x: -10, y: -14, width: 20, height: 14, rx: 3, fill: "#eef5ff", stroke: "#2a2118", "stroke-width": 2 }, c);
+  const rastre = el("line", { x1, y1, x2, y2: y1, stroke: "#9cc4f5", "stroke-width": 14, "stroke-linecap": "round", opacity: .7 }, escena);
+  const L = Math.abs(x2 - x1);
+  gsap.set(rastre, { strokeDasharray: L, strokeDashoffset: L });
+  tl.set(c, { opacity: 1, x: x1, y: y1 }, pos).to(c, { x: x2, duration: 1.3, ease: "power1.inOut" }, "<")
+    .to(rastre, { strokeDashoffset: 0, duration: 1.3, ease: "power1.inOut" }, "<").to(c, { opacity: 0, duration: .2 })
+    .to(rastre, { opacity: 0, duration: .4 }, "+=.4");  // la cola queda amagada sota la solapa
+}
+function encuadernador(tl, x, y, pos) {
+  const p = g(eines, { opacity: 0 });
+  const potes = g(p, { opacity: 0 });
+  el("path", { d: "M -2 0 L -18 26 M 2 0 L 18 26", stroke: "#b7891f", "stroke-width": 4, "stroke-linecap": "round" }, potes);
+  el("circle", { r: 11, fill: "url(#llauto)", stroke: "#6b4e0e", "stroke-width": 2 }, p);
+  el("circle", { cx: -3, cy: -3, r: 3, fill: "#fff7d6" }, p);
+  tl.set(p, { x, y: y - 160, opacity: 1 }, pos).to(p, { y, duration: .7, ease: "bounce.out" })
+    .to(potes, { opacity: 1, duration: .3 }).to(potes, { scaleX: 1.4, duration: .3, transformOrigin: "50% 0%" }, "<");
+}
+function espurnes(tl, x, y) {
+  for (let i = 0; i < 8; i++) {
+    const s = txt(eines, x, y, "✦", 18 + (i % 3) * 6, { fill: ["#f6c445", "#fff", COL][i % 3], opacity: 0 });
+    const a = i / 8 * Math.PI * 2;
+    tl.fromTo(s, { opacity: 1, x: 0, y: 0, scale: .3 }, { immediateRender: false, opacity: 0, x: Math.cos(a) * 90, y: Math.sin(a) * 70, scale: 1.2, duration: 1.1, ease: "power2.out" }, i ? "<" : ">");
+  }
+}
+// La càmera s'anima amb un objecte intermedi i s'escriu com a atribut: així el zoom sempre centra el punt (x, y)
+const CAM = { s: 1, x: 0, y: 0 };
+const posaCam = () => cam.setAttribute("transform", `translate(${CAM.x} ${CAM.y}) scale(${CAM.s})`);
+const zoom = (tl, x, y, s, pos, dur = 1.1) => tl.to(CAM, { s, x: 400 - x * s, y: 230 - y * s, duration: dur, ease: "power2.inOut", onUpdate: posaCam }, pos);
+
+// ============ Escenes ========================================================================
+// Cada pas comença amb pas(títol, detall, gest de La Pauta): és una etiqueta a la línia de temps
+const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 1.5 });
+const PASSOS = [];
+tl.set(CAM, { s: 1, x: 0, y: 0, onComplete: posaCam }, 0);
+const pas = (t, d, gest) => { const lab = `p${PASSOS.length}`; PASSOS.push([t, d, gest, lab]); tl.addLabel(lab); tl.call(mostra, [PASSOS.length - 1], lab); };
+const fig = `img/${id}.png`;
+const PARTS = MA.parts || [];
+
+// La fitxa impresa (SVG en mm) posada damunt la taula; un objecte «FULL» la mou i l'escala
+const FULL = { s: 420 / 297, x: 400 - 105 * 420 / 297, y: 20 };
+const ESC = 420 / 297;
+async function carregaFitxa(nom, peces = ["peca", "suport"], classe = "fitxa") {
+  const [svgTxt, geo] = await Promise.all([fetch(`fitxes/${nom}.svg`).then(r => r.text()), fetch(`fitxes/${nom}.json`).then(r => r.json()).catch(() => ({}))]);
+  const doc = new DOMParser().parseFromString((svgTxt.includes("xmlns=") ? svgTxt : svgTxt.replace("<svg ", `<svg xmlns="${NS}" `)), "image/svg+xml");
+  const full = g(escena, { class: classe });
+  const resta = g(full);   // el full i tot el que no és peça: cau en retallar
+  el("rect", { x: 0, y: 0, width: 210, height: 297, fill: "#fff", filter: "url(#ombra)" }, resta);
+  for (const n of [...doc.documentElement.childNodes]) (peces.includes(n.id) ? full : resta).appendChild(document.importNode(n, true));
+  const posa = () => full.setAttribute("transform", `translate(${FULL.x} ${FULL.y}) scale(${FULL.s})`);
+  posa();
+  return { full, resta, geo, posa, pecaG: full.querySelector("#peca"), suport: full.querySelector("#suport") };
+}
+const aFull = (x, y) => [FULL.x + x * FULL.s, FULL.y + y * FULL.s];   // mm del full -> coordenades de l'escena
+
+async function figura() {
+  const { full, resta, geo, posa, pecaG, suport } = await carregaFitxa(`${id}-fitxa`);
+  const tall = geo.tall, plec = geo.plec;
+  const xs = tall.map(p => p[0]), ys = tall.map(p => p[1]);
+  const box = { x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) };
+  const poli = tall.map(p => p.join(",")).join(" ");
+  // Color «pintat»: bandes suaus (cabell, cara, roba, cames, peana) i la meitat de darrere en mirall; es multiplica amb el dibuix
+  const gr = nou("gr"), grad = el("linearGradient", { id: gr, gradientUnits: "userSpaceOnUse", x1: 0, y1: box.y, x2: 0, y2: box.y + box.h }, defs);
+  const banda = [["#d9a66b", 0], ["#d9a66b", .07], ["#f6d2b4", .1], ["#f6d2b4", .17], [COL, .2], [COL, .33], ["#efe6d2", .36], ["#f7e7c6", .4], ["#f7e7c6", .6], ["#efe6d2", .64], [COL, .67], [COL, .8], ["#f6d2b4", .83], ["#f6d2b4", .9], ["#d9a66b", .93], ["#d9a66b", 1]];
+  banda.forEach(([c, o]) => el("stop", { offset: o, "stop-color": c, "stop-opacity": .75 }, grad));
+  const mk = nou("mk"), mask = el("mask", { id: mk, maskUnits: "userSpaceOnUse", x: -2000, y: -2000, width: 5000, height: 5000 }, defs);
+  const color = el("polygon", { points: poli, fill: `url(#${gr})`, mask: `url(#${mk})`, style: "mix-blend-mode:multiply" }, pecaG);
+  // Peça partida pel plec: la meitat de darrere (a sota) es doblega cap amunt
+  const cpA = nou("cp"), cpB = nou("cp");
+  el("rect", { x: 0, y: 0, width: 210, height: plec }, el("clipPath", { id: cpA }, defs));
+  el("rect", { x: 0, y: plec, width: 210, height: 297 }, el("clipPath", { id: cpB }, defs));
+  const darrere = pecaG.cloneNode(true); darrere.removeAttribute("id");
+  const plecG = g(full); plecG.appendChild(darrere); darrere.setAttribute("clip-path", `url(#${cpB})`);
+  full.insertBefore(plecG, pecaG);
+  gsap.set(plecG, { opacity: 0 });
+  const PL = { s: 1 };
+  const posaPlec = () => plecG.setAttribute("transform", `translate(0 ${plec}) scale(1 ${PL.s}) translate(0 ${-plec})`);
+  // Prisma (el suport muntat), dibuixat en perspectiva al centre de la taula
+  const prisma = g(escena, { opacity: 0 });
+  el("polygon", { points: "300,420 500,420 520,400 520,370 500,330 300,330", fill: "#efe6d2", stroke: "#2a2118", "stroke-width": 3 }, prisma);
+  el("polygon", { points: "300,420 500,420 500,330 300,330", fill: "#fff", stroke: "#2a2118", "stroke-width": 3 }, prisma);
+  el("polygon", { points: "500,420 520,375 500,330", fill: "#e9dfc9", stroke: "#2a2118", "stroke-width": 3 }, prisma);
+  el("rect", { x: 300, y: 398, width: 200, height: 9, fill: COL }, prisma);
+  el("rect", { x: 312, y: 342, width: 40, height: 40, fill: "#fff", stroke: "#2a2118", "stroke-width": 2, "stroke-dasharray": "4 3" }, prisma);
+  txt(prisma, 332, 367, "QR", 13, { fill: "#999" });
+  txt(prisma, 420, 360, C.epoca.toUpperCase(), 17, { "font-family": "Playfair Display, serif" });
+  txt(prisma, 420, 382, C.dates, 13);
+  el("line", { x1: 330, y1: 330, x2: 470, y2: 330, stroke: "#2a2118", "stroke-width": 7, "stroke-linecap": "round" }, prisma);   // la ranura ja tallada
+  const ranura = el("line", { x1: 330, y1: 330, x2: 470, y2: 330, stroke: "#c0392b", "stroke-width": 3 }, prisma);
+
+  pas("Pinta", "la figura per davant i per darrere (la de sota és l'esquena, cap per avall)", "pose1.png");
+  zoom(tl, ...aFull(box.x + box.w / 2, box.y + box.h / 2), 1.5);
+  pinta(tl, { mask, x: box.x, y: box.y, w: box.w, h: box.h / 2 }, 1.8, undefined, [FULL.x, FULL.y], ESC);
+  pinta(tl, { mask, x: box.x, y: box.y + box.h / 2, w: box.w, h: box.h / 2 }, 1.8, undefined, [FULL.x, FULL.y], ESC);
+  pas("Retalla", "tota la peça seguint la línia negra, i també el suport", "pose2.png");
+  retalla(tl, "M " + tall.map(p => aFull(...p).join(" ")).join(" L ") + " Z", 4.2);
+  const sb = suport.getBBox();
+  zoom(tl, ...aFull(sb.x + sb.width / 2, sb.y + sb.height / 2), 1.4);
+  retalla(tl, "M " + [[sb.x, sb.y], [sb.x + sb.width, sb.y], [sb.x + sb.width, sb.y + sb.height], [sb.x, sb.y + sb.height], [sb.x, sb.y]].map(p => aFull(...p).join(" ")).join(" L "), 2.4);
+  zoom(tl, 400, 230, 1);
+  tl.to(resta, { opacity: 0, y: 40, duration: .9, ease: "power2.in" }, "<");
+  pas("Doblega i enganxa", "posa cola a l'esquena, doblega-la cap amunt per la línia de punts i enganxa-la", "pose3.png");
+  zoom(tl, ...aFull(box.x + box.w / 2, plec), 1.5);
+  cola(tl, ...aFull(box.x + 6, plec + 30), aFull(box.x + box.w - 6, plec + 30)[0]);
+  tl.set(plecG, { opacity: 1 }).set(pecaG, { attr: { "clip-path": `url(#${cpA})` } });
+  tl.fromTo(PL, { s: 1 }, { s: -1, duration: 1.6, ease: "power2.inOut", onUpdate: posaPlec });
+  tl.set(plecG, { opacity: 0 });
+  pas("Munta el suport", "talla la línia vermella i doblega'l en forma de prisma", "pose4.png");
+  // La ranura vermella del suport (coordenades en mm del full): primer es talla, després s'obre
+  const sl = suport.querySelector(".slit"), M = full.getCTM().inverse().multiply(sl.getCTM());
+  const pt = (x, y) => { const q = new DOMPoint(x, y).matrixTransform(M); return [q.x, q.y]; };
+  const [r1, r2] = [pt(+sl.getAttribute("x1"), +sl.getAttribute("y1")), pt(+sl.getAttribute("x2"), +sl.getAttribute("y2"))];
+  const forat = el("line", { x1: r1[0], y1: r1[1], x2: r2[0], y2: r2[1], stroke: "#2a2118", "stroke-width": 0, "stroke-linecap": "round" }, full);
+  zoomMm((r1[0] + r2[0]) / 2, r1[1], 2.6);
+  retalla(tl, aEscena(`M ${r1[0]} ${r1[1]} L ${r2[0]} ${r2[1]}`, 20), 1.6);
+  tl.to(forat, { attr: { "stroke-width": 1.4 }, duration: .4 });
+  tl.call(detall, ["i ara doblega'l per les línies de punts: fa un prisma amb la ranura a dalt"]).to({}, { duration: .8 });
+  zoom(tl, 400, 230, 1);
+  tl.to([suport, forat], { opacity: 0, duration: .5 }).to(prisma, { opacity: 1, duration: .8 }, "<")
+    .fromTo(ranura, { opacity: 0 }, { opacity: 1, duration: .3, repeat: 3, yoyo: true });
+  pas("Encaixa la figura", "fes entrar la peana a la ranura vermella de dalt del suport", "pose5.png");
+  // La figura (ja doblegada) va fins damunt del prisma i hi baixa
+  const cx = box.x + box.w / 2, alt = plec - box.y, s2 = 270 / alt;
+  // primer queda just damunt la ranura (y = 310) i després baixa i la peana hi entra (el prisma, a sobre, la tapa)
+  tl.to(FULL, { s: s2, x: 400 - cx * s2, y: 310 - plec * s2, duration: 1.4, ease: "power2.inOut", onUpdate: posa })
+    .to(FULL, { y: 345 - plec * s2, duration: .8, ease: "bounce.out", onUpdate: posa });
+  espurnes(tl, 470, 120);
+  // en tornar a començar: tot al seu lloc
+  tl.call(() => pecaG.removeAttribute("clip-path"), null, 0);
+  tl.set(FULL, { s: ESC, x: 400 - 105 * ESC, y: 20, onComplete: posa }, 0);
+}
+
+// ---- Manualitat 1: la fitxa impresa (fitxes/<id>-m1.svg) i les seves peces, en mm ----
+// Un camí en mm del full -> polilínia en coordenades de l'escena (per a les tisores)
+function aEscena(d, punts = 120) {
+  const p = el("path", { d }, defs), L = p.getTotalLength(), out = [];
+  for (let i = 0; i <= punts; i++) { const q = p.getPointAtLength(L * i / punts); out.push(aFull(q.x, q.y).join(" ")); }
+  p.remove(); return "M " + out.join(" L ");
+}
+const rectD = (x, y, w, h) => `M ${x} ${y} H ${x + w} V ${y + h} H ${x} Z`;
+// Peça que es mou (en mm, dins del full): translació + gir o plec al voltant de (cx, cy)
+function mobil(node, cx = 0, cy = 0) {
+  const P = { x: 0, y: 0, r: 0, s: 1 };
+  P.posa = () => node.setAttribute("transform", `translate(${P.x} ${P.y}) rotate(${P.r} ${cx} ${cy}) translate(${cx} ${cy}) scale(1 ${P.s}) translate(${-cx} ${-cy})`);
+  tl.set(P, { x: 0, y: 0, r: 0, s: 1, onComplete: P.posa }, 0);
+  return P;
+}
+const mou = (P, v, pos) => tl.to(P, { ...v, onUpdate: P.posa }, pos);
+// Capa de color d'una peça: formes de colors (multiplicades amb el dibuix) sota una màscara que el llapis descobreix
+function capaColor(peca, formes, damunt = false) {
+  const c = el("g", { style: "mix-blend-mode:multiply" }, peca);
+  if (!damunt) peca.insertBefore(c, peca.children[1] || null);   // just damunt del contorn: el text queda a sobre
+  const mk = nou("mk"), mask = el("mask", { id: mk, maskUnits: "userSpaceOnUse", x: -2000, y: -2000, width: 5000, height: 5000 }, defs);
+  c.setAttribute("mask", `url(#${mk})`);
+  for (const [tag, a, color] of formes) el(tag, { ...a, fill: color }, c);
+  return mask;
+}
+const pintaMm = (mask, x, y, w, h, dur) => pinta(tl, { mask, x, y, w, h }, dur, undefined, [FULL.x, FULL.y], ESC);
+const zoomMm = (x, y, s, pos, dur) => zoom(tl, ...aFull(x, y), s, pos, dur);
+// Després de retallar, el full (amb tot el que no és peça) cau
+const cauResta = (resta) => tl.to(resta, { opacity: 0, y: 30, duration: .9, ease: "power2.in" });
+
+async function roda() {
+  const { resta, geo: G } = await carregaFitxa(`${id}-m1`, ["sota", "tapa"], "m1");
+  const sota = svg.querySelector("#sota"), tapa = svg.querySelector("#tapa"), n = G.n;
+  const sectors = PARTS.map((p, k) => {
+    const a0 = (-90 - 180 / n + k * 360 / n) * Math.PI / 180, a1 = a0 + 2 * Math.PI / n, P = a => `${G.cx + G.r * Math.cos(a)} ${G.cy + G.r * Math.sin(a)}`;
+    return ["path", { d: `M ${G.cx} ${G.cy} L ${P(a0)} A ${G.r} ${G.r} 0 0 1 ${P(a1)} Z` }, PASTELS[k % PASTELS.length]];
+  });
+  const mS = capaColor(sota, sectors), mT = capaColor(tapa, [["path", { d: G.tapa }, "#f3dcae"]]);
+  const PS = mobil(sota, G.cx, G.cy), PT = mobil(tapa);
+
+  pas("Pinta", "els dos cercles amb els colors que vulguis", "pose1.png");
+  zoomMm(G.cx, G.cy, 1.9);
+  pintaMm(mS, G.cx - G.r, G.cy - G.r, 2 * G.r, 2 * G.r, 1.8);
+  zoomMm(G.tx, G.ty, 1.9);
+  pintaMm(mT, G.tx - G.R, G.ty - G.R, 2 * G.R, 2 * G.R, 1.8);
+  pas("Retalla", "els dos cercles per la línia negra; a la tapa, retalla també la falca de dalt: és la finestra", "pose2.png");
+  zoomMm(105, G.cy, 1.5);
+  retalla(tl, aEscena(`M ${G.cx} ${G.cy - G.r} A ${G.r} ${G.r} 0 1 1 ${G.cx - .01} ${G.cy - G.r}`), 2);
+  retalla(tl, aEscena(G.tapa), 3);
+  zoom(tl, 400, 230, 1);
+  cauResta(resta);
+  pas("Uneix", "posa la tapa damunt del cercle i clava un encuadernador al centre", "gest-encuadernador.png");
+  zoomMm(G.cx, G.cy, 2);
+  mou(PT, { x: G.cx - G.tx, y: G.cy - G.ty, duration: 1.4, ease: "power2.inOut" }, "<");
+  encuadernador(tl, ...aFull(G.cx, G.cy));
+  pas("Gira", "el cercle de sota: a la finestra surt cada part", "gest-gira.png");
+  zoomMm(G.cx, G.cy - G.r / 2, 2.8);
+  for (let k = 1; k <= n; k++)
+    mou(PS, { r: -k * 360 / n, duration: .9, ease: "back.out(1.6)" }).call(detall, [`${PARTS[k % n][0]} · ${PARTS[k % n][1]}`]).to({}, { duration: 1.2 });
+  espurnes(tl, ...aFull(G.cx, G.cy - G.r));
+  zoom(tl, 400, 230, 1, "+=.5");
+}
+
+async function tira() {
+  const { resta, geo: G } = await carregaFitxa(`${id}-m1`, ["targeta", "tira"], "m1");
+  const targeta = svg.querySelector("#targeta"), tiraG = svg.querySelector("#tira");
+  const mK = capaColor(targeta, [["rect", { x: G.kx, y: G.ky, width: G.kw, height: G.kh, rx: 3 }, "#f3dcae"]]);
+  const mI = capaColor(tiraG, PARTS.map((p, i) => ["rect", { x: G.tx + (i + 1) * G.cw, y: G.ty, width: G.cw, height: G.th }, PASTELS[(i + 1) % PASTELS.length]]));
+  // La tira passa per darrere la targeta: només es veu entre els dos talls (un retall que es va estrenyent)
+  const cp = nou("cp"), cr = el("rect", { x: -500, y: -500, width: 1500, height: 1500 }, el("clipPath", { id: cp }, defs));
+  const embol = g(tiraG.parentNode, { "clip-path": `url(#${cp})` }); embol.appendChild(tiraG);
+  const PI = mobil(tiraG);
+  const dx0 = 105 - (G.tx + G.cw / 2), dy = G.sy + (G.sh - G.th) / 2 - G.ty;   // la casella INICI a la finestra
+
+  pas("Pinta", "la targeta i les caselles de la tira", "pose1.png");
+  zoomMm(105, 80, 1.5);
+  pintaMm(mK, G.kx, G.ky, G.kw, G.kh, 1.8);
+  pintaMm(mI, G.tx, G.ty, G.tw, G.th, 1.6);
+  pas("Retalla", "la targeta i la tira; després fes els dos talls vermells", "gest-talls.png");
+  retalla(tl, aEscena(rectD(G.kx, G.ky, G.kw, G.kh)), 2);
+  retalla(tl, aEscena(rectD(G.tx, G.ty, G.tw, G.th)), 2.2);
+  zoomMm(105, G.sy + G.sh / 2, 2.6);
+  retalla(tl, aEscena(`M ${G.sx1} ${G.sy} V ${G.sy + G.sh}`, 10), .7);
+  retalla(tl, aEscena(`M ${G.sx2} ${G.sy} V ${G.sy + G.sh}`, 10), .7);
+  zoom(tl, 400, 230, 1);
+  cauResta(resta);
+  pas("Passa la tira", "per darrere: surt pel primer tall i torna a entrar pel segon", "gest-passa-tira.png");
+  zoomMm(105, G.sy + G.sh / 2, 1.7);
+  mou(PI, { x: dx0, y: dy, duration: 1.6, ease: "power2.inOut" }, "<");
+  tl.to(cr, { attr: { x: G.sx1, y: G.sy - 2, width: G.sx2 - G.sx1, height: G.sh + 4 }, duration: .6 });
+  pas("Estira", "a poc a poc: a la finestra van sortint les parts", "gest-estira.png");
+  zoomMm(105, G.sy + G.sh / 2, 2.6);
+  for (let k = 1; k <= PARTS.length; k++)
+    mou(PI, { x: dx0 - k * G.cw, duration: .9, ease: "power2.inOut" }).call(detall, [`${PARTS[k - 1][0]} · ${PARTS[k - 1][1]}`]).to({}, { duration: 1.2 });
+  espurnes(tl, ...aFull(105, G.sy - 4));
+  zoom(tl, 400, 230, 1, "+=.5");
+}
+
+async function solapa() {
+  const { resta, geo: G } = await carregaFitxa(`${id}-m1`, ["base", "solapa"], "m1");
+  const base = svg.querySelector("#base"), sol = svg.querySelector("#solapa"), dins = MA.dins || [];
+  const mB = capaColor(base, [["rect", { x: G.x, y: G.by, width: G.w, height: G.h, rx: 3 }, "#f3dcae"]]);
+  const mS = capaColor(sol, [["rect", { x: G.x, y: G.sy + 8, width: G.w, height: G.h, rx: 3 }, PASTELS[1]]]);
+  const plec = G.sy + 8, dy = G.by - G.sy;     // la pestanya s'enganxa a dalt de la base
+  const PS = mobil(sol, 0, plec);
+
+  pas("Pinta", "la base i la solapa", "pose1.png");
+  zoomMm(105, 100, 1.4);
+  pintaMm(mB, G.x, G.by, G.w, G.h, 1.6);
+  pintaMm(mS, G.x, plec, G.w, G.h, 1.6);
+  pas("Retalla", "la base i la solapa amb la pestanya grisa", "pose2.png");
+  retalla(tl, aEscena(rectD(G.x, G.by, G.w, G.h)), 1.8);
+  retalla(tl, aEscena(rectD(G.x, G.sy, G.w, G.h + 8)), 1.8);
+  zoom(tl, 400, 230, 1);
+  cauResta(resta);
+  pas("Enganxa", "posa cola a la pestanya grisa i enganxa-la a dalt de la base", "pose3.png");
+  zoomMm(105, G.sy + 4, 2.2);
+  cola(tl, ...aFull(G.x + 4, G.sy + 4), aFull(G.x + G.w - 4, 0)[0]);
+  zoomMm(105, 70, 1.5);
+  mou(PS, { y: dy, duration: 1.4, ease: "power2.inOut" }, "<");
+  pas("Aixeca la solapa", "i descobreix la sorpresa!", "gest-obre.png");
+  for (let i = 0; i < 2; i++)
+    mou(PS, { s: -.1, duration: 1.1, ease: "power2.inOut" }).call(detall, [dins.map(d => d[0]).join(" · ")]).to({}, { duration: 2 })
+      .to(PS, { s: 1, duration: .9, ease: "power2.inOut", onUpdate: PS.posa }).to({}, { duration: .6 });
+  espurnes(tl, ...aFull(105, G.by));
+  zoom(tl, 400, 230, 1, "+=.3");
+}
+
+async function pla() {
+  const guit = id === "tarrega";
+  const { resta, geo: G } = await carregaFitxa(`${id}-m1`, ["dibuix"], "m1");
+  const dib = svg.querySelector("#dibuix");
+  dib.insertBefore(el("rect", { x: G.x0, y: G.y0, width: G.x1 - G.x0, height: G.y1 - G.y0, fill: "#fff" }, dib), dib.firstChild);
+  const formes = guit
+    ? [...dib.querySelectorAll(".dib path, .dib rect")].map((e, i) => [e.tagName, Object.fromEntries([...e.attributes].map(a => [a.name, a.value])), ["#e8b37a", "#8a5a2b", "#5b3a1a", "#5b3a1a"][i] || "#8a5a2b"])
+    : [...dib.querySelectorAll(".negra")].map(e => ["rect", Object.fromEntries([...e.attributes].map(a => [a.name, a.value])), "#2a2118"]);
+  formes.forEach(f => delete f[1].class);
+  const mD = capaColor(dib, formes, true);   // per damunt: les tecles i la guitarra són blanques
+  const PD = mobil(dib);
+  // Etiquetes que s'escriuen (guitarra) o notes que sonen (teclat)
+  const noms = guit ? ["clavillers", "màstil", "trasts", "boca", "pont", "6 cordes"] : [];
+  const etiq = noms.map((t, i) => {
+    const e = el("text", { x: 131, y: 36 + i * 21 + 1.3, "font-size": 4.2, "font-family": "Fredoka, sans-serif", "font-weight": 600, fill: "#1d4e9e" }, dib); e.textContent = t;
+    const cp = nou("cp"), r = el("rect", { x: 130, y: 0, width: 0, height: 300 }, el("clipPath", { id: cp }, defs));
+    e.setAttribute("clip-path", `url(#${cp})`); return r;
+  });
+
+  pas("Pinta", guit ? "la guitarra: la caixa, el màstil i el claviller" : "les 5 tecles negres de cada grup (2 + 3)", "pose1.png");
+  zoomMm((G.x0 + G.x1) / 2, (G.y0 + G.y1) / 2, 1.6);
+  if (guit) pintaMm(mD, 40, 26, 62, 128, 2.6); else pintaMm(mD, 22, 50, 166, 50, 2.4);
+  pas(guit ? "Escriu" : "Toca", guit ? "el nom de cada part a la seva casella" : "només les tecles negres: sempre sona bé, és la pentatònica", guit ? "gest-escriu.png" : "pose6.png");
+  if (guit) etiq.forEach((r, i) => { zoomMm(150, 36 + i * 21, 2.4, undefined, .5); tl.to(r, { attr: { width: 50 }, duration: .8, ease: "none" }); });
+  else for (let i = 0; i < 10; i++) {
+    const o = Math.floor(i / 5), k = [0, 1, 3, 4, 5][i % 5], x = 21 + (o * 7 + k) * 12 + 12 * .68 + 12 * .32;
+    const nt = txt(eines, ...aFull(x, 75), ["♪", "♫", "♩"][i % 3], 34, { fill: COL, opacity: 0 });
+    tl.fromTo(nt, { opacity: 1, x: 0, y: 0 }, { immediateRender: false, opacity: 0, y: -170, duration: 1.4, ease: "power1.out" }, i ? "<.3" : ">");
+  }
+  pas("Retalla i enganxa", "el dibuix a la llibreta", "pose2.png");
+  zoom(tl, 400, 230, 1);
+  retalla(tl, aEscena(rectD(G.x0, G.y0, G.x1 - G.x0, G.y1 - G.y0)), 2);
+  cauResta(resta);
+  const llib = g(escena, { opacity: 0 });
+  el("rect", { x: 170, y: 40, width: 460, height: 400, rx: 8, fill: "#fdfcf7", stroke: "#2a2118", "stroke-width": 3, filter: "url(#ombra)" }, llib);
+  for (let y = 80; y < 430; y += 24) el("line", { x1: 180, y1: y, x2: 620, y2: y, stroke: "#bcd3ec", "stroke-width": 1.5 }, llib);
+  el("line", { x1: 220, y1: 40, x2: 220, y2: 440, stroke: "#e8a0a0", "stroke-width": 2 }, llib);
+  escena.insertBefore(llib, escena.firstChild);
+  tl.to(llib, { opacity: 1, duration: .6 });
+  mou(PD, { x: 105 - (G.x0 + G.x1) / 2, y: 150 - (G.y0 + G.y1) / 2 + 2, duration: 1.3, ease: "power2.inOut" }, "<");
+  pas("Escolta", "l'obra amb el QR de la fitxa", "pose6.png");
+  for (let i = 0; i < 6; i++) { const nt = txt(eines, 560, 380, ["♪", "♫", "♩"][i % 3], 42, { fill: COL, opacity: 0 }); tl.fromTo(nt, { opacity: 1, x: 0, y: 0 }, { immediateRender: false, opacity: 0, x: (i - 3) * 30, y: -260, duration: 2, ease: "power1.out" }, i ? "<.25" : ">"); }
+}
+
+function escenari() {
+  const f = full(110, 15, 580, 430);
+  const marcFons = el("svg", { x: 140, y: 30, width: 520, height: 260, viewBox: "0 0 520 260" }, escena);  // retalla el fons al marc
+  const fonsG = pintable(marcFons, fons(C.epoca), 0, 0, 520, 260, "xMidYMid slice");
+  el("rect", { x: 140, y: 30, width: 520, height: 260, fill: "none", stroke: "#2a2118", "stroke-width": 3 }, escena);
+  const terra = el("polygon", { points: "140,290 660,290 660,420 140,420", fill: "#f3ead8", stroke: "#2a2118", "stroke-width": 3 }, escena);
+  const plec = el("line", { x1: 140, y1: 290, x2: 660, y2: 290, stroke: "#555", "stroke-width": 2, "stroke-dasharray": "8 6" }, escena);
+  const obj = ["🎻", "🕯️", "📜", "🎹"].map((e, i) => {
+    const o = g(escena, { opacity: 0 });
+    el("rect", { x: -34, y: -70, width: 68, height: 70, rx: 10, fill: "#fff", stroke: "#2a2118", "stroke-width": 2, filter: "url(#ombra)" }, o);
+    el("rect", { x: -34, y: 0, width: 68, height: 12, fill: "#e6e6e6", stroke: "#2a2118", "stroke-width": 2 }, o);
+    txt(o, 0, -22, e, 36);
+    gsap.set(o, { x: [40, 760, 40, 760][i], y: [150, 150, 330, 330][i] });
+    return o;
+  });
+  const figG = g(escena, { opacity: 0 });
+  el("image", { href: fig, x: -55, y: -210, width: 110, height: 210, filter: "url(#ombra2)" }, figG);
+
+  pas("Pinta el fons", "de la sala de l'època del compositor", "pose1.png");
+  pinta(tl, fonsG, 2.6, undefined, [140, 30]);
+  pas("Retalla i doblega", "el terra per la línia de punts: el fons queda dret", "gest-doblega.png");
+  retalla(tl, "M 140 30 h 520 v 390 h -520 Z", 2);
+  cauFull(tl, f);
+  tl.to(terra, { attr: { points: "140,290 660,290 760,400 40,400" }, duration: 1.3, ease: "power2.inOut" }).to(plec, { opacity: 0, duration: .3 }, "<");
+  pas("Munta els objectes", "retalla'ls, doblega la pestanya i posa'ls drets on vulguis", "pose2.png");
+  const dest = [[230, 360], [570, 360], [320, 395], [480, 395]];
+  obj.forEach((o, i) => tl.to(o, { opacity: 1, duration: .3 }, i ? "<.2" : ">"));
+  obj.forEach((o, i) => tl.to(o, { x: dest[i][0], y: dest[i][1], scale: .85, duration: 1, ease: "back.out(1.5)" }, i ? "<.3" : ">"));
+  pas("Col·loca la figura", "on vulguis: és la teva escena!", "gest-obre.png");
+  tl.fromTo(figG, { opacity: 0, x: 400, y: 200 }, { opacity: 1, x: 400, y: 392, duration: 1, ease: "bounce.out" });
+  zoom(tl, 400, 300, 1.25, "<");
+  espurnes(tl, 400, 170);
+  zoom(tl, 400, 230, 1, "+=1");
+}
+
+// ============ Reproductor ===================================================================
+function mostra(k) {
+  const [t, d, gest] = PASSOS[k];
+  $("num").textContent = k + 1; $("pas-t").textContent = t; $("detall").textContent = d;
+  $("gest").src = `img/gestos/${gest}`;
+  [...$("punts").children].forEach((b, i) => b.classList.toggle("ara", i === k));
+}
+function detall(t) { $("detall").textContent = t; }
+Promise.resolve(({ 1: { roda, tira, solapa, pla }[MA.tipus], 2: figura, 3: escenari })[m]()).then(() => {
+$("punts").innerHTML = PASSOS.map((p, i) => `<button aria-label="Pas ${i + 1}"></button>`).join("");
+[...$("punts").children].forEach((b, i) => b.onclick = () => vesA(i));
+const actual = () => { const t = tl.time(); let k = 0; PASSOS.forEach((p, i) => { if (tl.labels[p[3]] <= t + .01) k = i; }); return k; };
+function vesA(k) { k = (k + PASSOS.length) % PASSOS.length; tl.seek(PASSOS[k][3], false); mostra(k); }
+$("seg").onclick = () => vesA(actual() + 1);
+$("ant").onclick = () => vesA(actual() - 1);
+$("pausa").onclick = () => { tl.paused(!tl.paused()); $("pausa").textContent = tl.paused() ? "▶︎" : "⏸"; };
+tl.eventCallback("onUpdate", () => {
+  const k = actual(), ini = tl.labels[PASSOS[k][3]], fi = k + 1 < PASSOS.length ? tl.labels[PASSOS[k + 1][3]] : tl.duration();
+  $("prog").style.width = `${Math.min(100, (tl.time() - ini) / (fi - ini) * 100)}%`;
+});
+mostra(0);
+document.fonts.ready.then(() => tl.play());
+});
+</script>
+</body>
+</html>

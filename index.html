@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Museu dels Compositors · La Pauta</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="museu.css">
+<style>
+  body { background:linear-gradient(#fbf7ee66, #fbf7eebb), url(img/fons/vestibul.jpg) center bottom / cover; }
+  main { justify-content:center; align-items:center; gap:2.5vh; text-align:center; }
+  .entrada { display:flex; align-items:flex-end; justify-content:center; gap:clamp(8px,3vw,40px); min-height:0; flex:0 1 46vh; }
+  .entrada img { height:100%; max-width:30vw; object-fit:contain; }
+  .entrada .pauta { height:70%; }
+  h1 { font-size:clamp(32px,min(8vh,11vw),78px); }
+  .cartell { background:var(--fusta); color:#fff; border-radius:10px; padding:.2em .8em; display:inline-block;
+             font:600 clamp(14px,2.4vh,22px) Fredoka, sans-serif; transform:rotate(-2deg); box-shadow:0 4px 0 #0003; }
+  p { margin:0; max-width:34em; }
+</style>
+</head>
+<body>
+<nav class="banda"><span>La Pauta</span><span>Música · 1r ESO</span></nav>
+<main>
+  <span class="cartell">Entrada lliure · Obert tot l’any</span>
+  <h1>Museu dels Compositors</h1>
+  <div class="entrada">
+    <img src="img/bach.png" alt="Figura de Bach">
+    <img class="pauta" src="img/pauta-base-saluda.png" alt="La Pauta et saluda">
+    <img src="img/vivaldi.png" alt="Figura de Vivaldi">
+  </div>
+  <p>Hola! Soc La Pauta. Passeja per <b>6 sales</b>, de l’Edat Mitjana fins avui, i <b>escolta</b> la música de <b>18 compositors</b>.</p>
+  <a class="boto gran" href="museu.html">Entra al museu →</a>
+</main>
+<footer>© Javier Mateo García per a Aulatech · <a href="https://www.youtube.com/@lapautamusica" target="_blank" rel="noopener">La Pauta a YouTube</a></footer>
+</body>
+</html>
