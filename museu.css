@@ -33,3 +33,4 @@ h1 { font:700 clamp(26px,min(6vh,8.5vw),58px)/1 Fredoka, sans-serif; margin:0; t
 a.quadre { transition:transform .15s; } a.quadre:hover { transform:translateY(-4px) rotate(-.6deg); }
 .tancada { filter:grayscale(.9); opacity:.6; }
 footer { position:fixed; left:0; right:0; bottom:.6vh; font-size:clamp(9px,1.3vh,12px); color:var(--soft); text-align:center; }
+footer a { color:inherit; }
